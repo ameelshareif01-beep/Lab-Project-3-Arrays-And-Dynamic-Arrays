@@ -1,4 +1,16 @@
-public class DynamicArray<T> {
+public class Main {
+    public static void main(String[] args) {
+        DynamicArray<String> names = new DynamicArray<>();
+        names.add("Alice");
+        names.add("Bob");
+        names.add("Charlie");
+        System.out.println("Size: " + names.size());
+        System.out.println("Element at index 1: " + names.get(1));
+    }
+}
+
+// DynamicArray class (not public here)
+class DynamicArray<T> {
     private T[] data;
     private int size;
     private static final int INITIAL_CAPACITY = 10;
@@ -23,16 +35,13 @@ public class DynamicArray<T> {
 
     public T remove(int index) {
         checkIndex(index);
-        T removedElement = data[index];
-
-        // Shift elements left
+        T removed = data[index];
         for (int i = index; i < size - 1; i++) {
             data[i] = data[i + 1];
         }
-        data[size - 1] = null; // Prevent memory leak
+        data[size - 1] = null;
         size--;
-
-        return removedElement;
+        return removed;
     }
 
     public int size() {
@@ -50,9 +59,7 @@ public class DynamicArray<T> {
 
     private void checkIndex(int index) {
         if (index < 0 || index >= size) {
-            throw new IndexOutOfBoundsException(
-                "Index: " + index + ", Size: " + size
-            );
+            throw new IndexOutOfBoundsException("Index: " + index + ", Size: " + size);
         }
     }
 }
